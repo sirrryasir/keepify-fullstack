@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 dotenv.config();
 
 import authRoutes from "./routes/authRoutes.js"
+import noteRoutes from "./routes/noteRoutes.js"
 
 import connectDB from "./config/db.js";
 
@@ -15,7 +16,8 @@ app.use(express.json());
 // CORS is enabled here! (The solution for tonight's session)
 app.use(cors());
 
-app.use("/api", authRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/notes", noteRoutes);
 
 const startServer = async () => {
   try {
