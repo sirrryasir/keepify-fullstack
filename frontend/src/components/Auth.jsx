@@ -1,30 +1,30 @@
-import { useState } from 'react'
-import { login, register } from '../lib/api/auth'
+import React, { useState } from "react";
+import { login, register } from "../lib/api/auth";
 
-function Auth({ onLoginSuccess}) {
-  const [isLogin, setIsLogin] = useState(true)
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState("")
+const Auth = ({ onLoginSuccess }) => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError("")
+    e.preventDefault();
+    setError("");
     try {
       let data;
       if (isLogin) {
-        data = await login(email, password)
+        data = await login(email, password);
       } else {
-        data = await register(name, email, password)
+        data = await register(name, email, password);
       }
-      localStorage.setItem("token", data.token)
-      localStorage.setItem("user", JSON.stringify(data))
-      onLoginSuccess(data)
-    } catch (error) {
-      setError(error.message)
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data));
+      onLoginSuccess(data);
+    } catch (err) {
+      setError(err.message);
     }
-  }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
